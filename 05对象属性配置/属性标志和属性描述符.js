@@ -10,8 +10,8 @@ let employee = {
 
 //每个对象的    属性   都会有4个标志
 //1 writable  可写？
-//2 enumerable 可遍历出？
-//3 configurable 该属性为 false 时， 对象成员的元属性不可以被配置
+//2 enumerable  如果为 true，则会被在循环中列出，否则不会被列出。
+//3 configurable 该属性为 false 时， 对象成员的(元属性)不可以被配置
 //4 value
 
 //getOwnPropertyDescriptor 查询name属性 的完整信息
@@ -35,11 +35,13 @@ Object.defineProperty(employee, "user", {value: "John",
     configurable: true})
 
 // 一旦设置 configurable 为 false
-//1. 当writable为 true 时，employee.user 修改属性值也不可以，除非使用 defineProperty 来改value
-//2. defineProperty 不可以修改 writable， configurable
-//3. configurable 本身也不可以被修改
-//4. 不能修改访问者属性的 get/set
+/*不能修改 configurable 标志。
+  不能修改 enumerable 标志。
+  不能将 writable: false 修改为 true（反之亦然）。
+  不能修改访问者属性的 get/set（但是如果没有可以分配它们）。
+*/
 Object.defineProperty(employee, "user", {value: "jhon"})
+console.log("-----------")
 console.log(employee)
 
 
